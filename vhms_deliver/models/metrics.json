@@ -1,0 +1,22 @@
+{
+  "health_status": {
+    "accuracy": 0.89875,
+    "macro_f1": 0.5869351483209182
+  },
+  "maintenance_required": {
+    "accuracy": 0.7045833333333333,
+    "macro_f1": 0.6957472742685624
+  },
+  "fault_category": {
+    "accuracy": 0.6654166666666667,
+    "macro_f1": 0.46185026235235555
+  },
+  "maintenance_priority": {
+    "accuracy": 0.9708333333333333,
+    "macro_f1": 0.7174078678575099
+  },
+  "estimated_cost": {
+    "mae": 61.40801200367195,
+    "r2": 0.7277085523561962
+  }
+}
