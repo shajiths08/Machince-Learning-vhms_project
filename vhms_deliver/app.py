@@ -6,8 +6,6 @@ from flask import (
     Flask,
     render_template_string,
     request,
-    redirect,
-    url_for,
 )
 
 # ---------------------------------------------------------
@@ -504,13 +502,26 @@ def dashboard():
     anomalies = 0
     maintenance = 0
 
-   for vehicle in fleet:
+    for vehicle in fleet:
 
-    prediction = vehicle.get("prediction", {})
+        prediction = vehicle.get("prediction", {})
 
-    status = str(
-    prediction.get("vehicle_health_status", "")
-).lower()
+        status = str(
+            prediction.get("vehicle_health_status", "")
+        ).lower()
+
+        if "healthy" in status:
+            healthy += 1
+        elif "warning" in status:
+            warning += 1
+        elif "critical" in status:
+            critical += 1
+
+        if prediction.get("is_anomaly", False):
+            anomalies += 1
+
+        if prediction.get("maintenance_required", False):
+            maintenance += 1
 
     content = f"""
     <h1 class="page-title">VHMS Dashboard</h1>
@@ -905,24 +916,26 @@ def fleet():
             or f"Vehicle {index + 1}"
         )
 
-        status = vehicle.get(
+        prediction = vehicle.get("prediction", {})
+
+        status = prediction.get(
             "vehicle_health_status",
-            vehicle.get("health_status", "Unknown"),
+            "Unknown"
         )
 
-        fault = vehicle.get(
+        fault = prediction.get(
             "fault_category",
-            "Unknown",
+            "Unknown"
         )
 
-        priority = vehicle.get(
+        priority = prediction.get(
             "maintenance_priority",
-            "Unknown",
+            "Unknown"
         )
 
-        cost = vehicle.get(
+        cost = prediction.get(
             "estimated_maintenance_cost_usd",
-            vehicle.get("estimated_cost", "-"),
+            "-"
         )
 
         rows += f"""
@@ -941,7 +954,7 @@ def fleet():
             <td>{priority}</td>
 
             <td>
-                ${
+                {
                     f"{float(cost):,.2f}"
                     if isinstance(cost, (int, float))
                     else cost
