@@ -504,33 +504,13 @@ def dashboard():
     anomalies = 0
     maintenance = 0
 
-    for vehicle in fleet:
+   for vehicle in fleet:
 
-        status = str(
-            vehicle.get(
-                "vehicle_health_status",
-                vehicle.get("health_status", ""),
-            )
-        ).lower()
+    prediction = vehicle.get("prediction", {})
 
-        if "healthy" in status:
-            healthy += 1
-        elif "warning" in status:
-            warning += 1
-        elif "critical" in status:
-            critical += 1
-
-        if vehicle.get(
-            "is_anomaly",
-            vehicle.get("anomaly", False),
-        ):
-            anomalies += 1
-
-        if vehicle.get(
-            "maintenance_required",
-            False,
-        ):
-            maintenance += 1
+    status = str(
+    prediction.get("vehicle_health_status", "")
+).lower()
 
     content = f"""
     <h1 class="page-title">VHMS Dashboard</h1>
