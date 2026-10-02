@@ -50,20 +50,22 @@ def load_fleet():
             return data
 
         if isinstance(data, dict):
+            vehicles = []
 
-            # Common possible structures
-            for key in [
-                "vehicles",
-                "fleet",
-                "predictions",
-                "results",
-            ]:
-                if isinstance(data.get(key), list):
-                    return data[key]
+            for vehicle_id, vehicle_data in data.items():
+                if not isinstance(vehicle_data, dict):
+                    continue
+
+                vehicle = vehicle_data.copy()
+                vehicle["vehicle_id"] = vehicle_id
+                vehicles.append(vehicle)
+
+            return vehicles
 
         return []
 
-    except Exception:
+    except Exception as exc:
+        print(f"Error loading fleet data: {exc}")
         return []
 
 
