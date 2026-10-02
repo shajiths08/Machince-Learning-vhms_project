@@ -29,16 +29,16 @@ def _load():
     if _cache:
         return _cache
     _cache["model_status"] = joblib.load(MODELS_DIR / "model_health_status.joblib")
-    _cache["le_status"] = joblib.load(f"{MODELS_DIR}/le_health_status.joblib")
-    _cache["model_maint"] = joblib.load(f"{MODELS_DIR}/model_maintenance_required.joblib")
-    _cache["model_fault"] = joblib.load(f"{MODELS_DIR}/model_fault_category.joblib")
-    _cache["le_fault"] = joblib.load(f"{MODELS_DIR}/le_fault_category.joblib")
-    _cache["model_priority"] = joblib.load(f"{MODELS_DIR}/model_maintenance_priority.joblib")
-    _cache["le_priority"] = joblib.load(f"{MODELS_DIR}/le_maintenance_priority.joblib")
-    _cache["model_cost"] = joblib.load(f"{MODELS_DIR}/model_estimated_cost.joblib")
-    _cache["anomaly_model"] = joblib.load(f"{MODELS_DIR}/anomaly_model.joblib")
-    _cache["anomaly_scaler"] = joblib.load(f"{MODELS_DIR}/anomaly_scaler.joblib")
-    with open(f"{MODELS_DIR}/feature_importances.json") as f:
+    _cache["le_status"] = joblib.load(MODELS_DIR / "le_health_status.joblib")
+    _cache["model_maint"] = joblib.load(MODELS_DIR / "model_maintenance_required.joblib")
+    _cache["model_fault"] = joblib.load(MODELS_DIR / "model_fault_category.joblib")
+    _cache["le_fault"] = joblib.load(MODELS_DIR / "le_fault_category.joblib")
+    _cache["model_priority"] = joblib.load(MODELS_DIR / "model_maintenance_priority.joblib")
+    _cache["le_priority"] = joblib.load(MODELS_DIR / "le_maintenance_priority.joblib")
+    _cache["model_cost"] = joblib.load(MODELS_DIR / "model_estimated_cost.joblib")
+    _cache["anomaly_model"] = joblib.load(MODELS_DIR / "anomaly_model.joblib")
+    _cache["anomaly_scaler"] = joblib.load(MODELS_DIR / "anomaly_scaler.joblib")
+    with open(MODELS_DIR / "feature_importances.json") as f:
         _cache["importances"] = json.load(f)
     return _cache
 
