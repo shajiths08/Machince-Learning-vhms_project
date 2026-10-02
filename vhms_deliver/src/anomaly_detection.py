@@ -13,13 +13,14 @@ import pandas as pd
 from sklearn.ensemble import IsolationForest
 from sklearn.preprocessing import StandardScaler
 
-from preprocessing import build_feature_matrix
+from src.preprocessing import build_feature_matrix
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 MODELS_DIR = BASE_DIR / "models"
-DATA_DIR = BASE_DIR / "data"
 
+joblib.dump(model, MODELS_DIR / "anomaly_model.joblib")
+joblib.dump(scaler, MODELS_DIR / "anomaly_scaler.joblib")
 
 def train_anomaly_detector(
     df: pd.DataFrame,
