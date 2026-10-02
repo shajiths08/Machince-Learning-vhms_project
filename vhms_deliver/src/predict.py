@@ -17,7 +17,10 @@ import pandas as pd
 from preprocessing import build_feature_matrix, ALL_FEATURES, RAW_FEATURES
 from anomaly_detection import score_anomaly
 
-MODELS_DIR = "/home/claude/vhms/models"
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODELS_DIR = BASE_DIR / "models"
 
 _cache = {}
 
@@ -25,7 +28,7 @@ _cache = {}
 def _load():
     if _cache:
         return _cache
-    _cache["model_status"] = joblib.load(f"{MODELS_DIR}/model_health_status.joblib")
+    _cache["model_status"] = joblib.load(MODELS_DIR / "model_health_status.joblib")
     _cache["le_status"] = joblib.load(f"{MODELS_DIR}/le_health_status.joblib")
     _cache["model_maint"] = joblib.load(f"{MODELS_DIR}/model_maintenance_required.joblib")
     _cache["model_fault"] = joblib.load(f"{MODELS_DIR}/model_fault_category.joblib")
