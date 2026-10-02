@@ -16,8 +16,8 @@ import joblib
 import numpy as np
 import pandas as pd
 
-from preprocessing import build_feature_matrix, ALL_FEATURES, RAW_FEATURES
-from anomaly_detection import score_anomaly
+from src.preprocessing import build_feature_matrix, ALL_FEATURES, RAW_FEATURES
+from src.anomaly_detection import score_anomaly
 
 
 # Project root = vhms_deliver/
